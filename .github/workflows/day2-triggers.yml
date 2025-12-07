@@ -1,0 +1,19 @@
+name: Day 2 - Triggers Demo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Push Test
+        run: echo "Workflow triggered successfully!"
+
+      - name: Show Branch Name
+        run: echo "Running on branch ${{ github.ref }}"
