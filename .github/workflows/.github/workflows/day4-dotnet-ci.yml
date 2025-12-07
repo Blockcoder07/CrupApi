@@ -1,0 +1,35 @@
+name: Day 4 - .NET CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Get Code from Repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Install .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # 3️⃣ Restore NuGet Packages
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      # 4️⃣ Build the Project
+      - name: Build Project
+        run: dotnet build --no-restore
+
+      # 5️⃣ Run Tests
+      - name: Run Unit Tests
+        run: dotnet test --no-build --verbosity normal
